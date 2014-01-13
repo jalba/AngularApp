@@ -16,6 +16,7 @@ app.factory('Facebook', function($q, $rootScope) {
 
     return {
         getUser: function(FB) {
+            console.log('fired');
             var deferred = $q.defer();
             FB.getLoginStatus(function(response) {
                 if (response.authResponse) {
@@ -27,6 +28,19 @@ app.factory('Facebook', function($q, $rootScope) {
             promise = deferred.promise;
             promise.connected = false;
             return promise;
+        },
+        login: function(FB) {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                     token = response.authResponse.accessToken;
+                     document.getElementById( 'login' ).style.display = 'none';
+                     document.getElementById( 'connected' ).style.display = 'block';
+                     getFriends(FB);
+                }
+                else {
+                   console.log('User cancelled login or did not fully authorize.');
+                }
+            }, {scope: 'user_location'});
         }
     }
 });
@@ -34,21 +48,11 @@ app.factory('Facebook', function($q, $rootScope) {
 app.controller('AngCtrl', function($scope, Facebook) {
     $scope.logged = Facebook.getUser(FB);
     $scope.login = function() {
-        login();
+      Facebook.login(FB);
+      $scope.logged.connected  = true;
     };
+    
 });
-
-var login = function() {
-    FB.login(function(response) {
-        if (response.authResponse) {
-            token = response.authResponse.accessToken;
-            getFriends(FB);
-        }
-        else {
-            console.log('User cancelled login or did not fully authorize.');
-        }
-    }, {scope: 'user_location'});
-};
 
 var getFriends = function(FB) {
     FB.api('/me/friends', function(response){

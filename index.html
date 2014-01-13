@@ -5,7 +5,7 @@
   	<script src="http://connect.facebook.net/en_US/all.js"></script>
   	<script>
   	    FB.init({
-            appId      : '226188397567902',     
+            appId      : '251921301641413',     
             status     : true,                              
             xfbml      : true 
         });
@@ -16,10 +16,10 @@
   <body>
      <div id="fb-root"></div>
      <div ng-controller="AngCtrl">
-	     <div class="centered login" ng-hide="logged.connected">
+	     <div class="centered login" ng-hide="logged.connected" id="login">
 	     	     Please <button ng-click="login()">Login</button> with Facebook
 	     </div>
-	     <div class="centered" ng-show="logged.connected">
+	     <div class="centered" ng-show="logged.connected" id="connected">
 	          <h3>These are your Facebook Friends:</h3>
 	          <hr>
 	          <div id="friendContainer"></div>
