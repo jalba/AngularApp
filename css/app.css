@@ -1,0 +1,29 @@
+body {
+	letter-spacing: .1em;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	color: #333;
+}
+
+.centered {
+	width: 300px;
+	position: relative;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.friend {
+	height: 52px;
+	line-height: 52px;
+	margin-top: 15px;
+}
+
+.friend img {
+	float: left;
+	margin-right: 10px;
+}
+
+.friend b {
+	float: left;
+	height: 17px;
+}
