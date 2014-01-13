@@ -16,8 +16,8 @@
   <body>
      <div id="fb-root"></div>
      <div ng-controller="AngCtrl">
-	     <div class="centered" ng-hide="logged.connected">
-	     	     Please Login with Facebook
+	     <div class="centered login" ng-hide="logged.connected">
+	     	     Please <button ng-click="login()">Login</button> with Facebook
 	     </div>
 	     <div class="centered" ng-show="logged.connected">
 	          <h3>These are your Facebook Friends:</h3>

@@ -23,19 +23,6 @@ app.factory('Facebook', function($q, $rootScope) {
                     token = response.authResponse.accessToken;
                     getFriends(FB);
                  }
-                else {
-                     FB.login(function(response) {
-                         if (response.authResponse) {
-                             resolve(null, response, deferred); 
-                             token = response.authResponse.accessToken;
-                             getFriends(FB);
-                         }
-                         else {
-                             resolve(response.error, null, deferred);
-                             console.log('User cancelled login or did not fully authorize.');
-                         }
-                     }, {scope: 'user_location'});
-                }
             },true);
             promise = deferred.promise;
             promise.connected = false;
@@ -46,7 +33,22 @@ app.factory('Facebook', function($q, $rootScope) {
 
 app.controller('AngCtrl', function($scope, Facebook) {
     $scope.logged = Facebook.getUser(FB);
+    $scope.login = function() {
+        login();
+    };
 });
+
+var login = function() {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            token = response.authResponse.accessToken;
+            getFriends(FB);
+        }
+        else {
+            console.log('User cancelled login or did not fully authorize.');
+        }
+    }, {scope: 'user_location'});
+};
 
 var getFriends = function(FB) {
     FB.api('/me/friends', function(response){
